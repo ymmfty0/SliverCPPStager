@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <wininet.h>
 #include <vector>
-#include <cstdio>
 
 #pragma comment (lib, "Wininet.lib")
 
